@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:48:58 by dhasan            #+#    #+#             */
-/*   Updated: 2024/04/27 17:06:23 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/04/29 15:41:13 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,7 @@ int	ft_atoi(const char *str)
 	}
 	while (*str >= '0' && *str <= '9')
 		num = (num * 10) + (*str++ - '0');
+	// if (num * sign > 2147483647)
+	// 	return (write(2, "Error: arg bigger than INT_MAX\n", 31), 1);
 	return (num * sign);
 }
