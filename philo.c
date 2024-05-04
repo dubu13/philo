@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:23:26 by dhasan            #+#    #+#             */
-/*   Updated: 2024/05/03 18:40:51 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/05/04 15:02:09 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,13 @@ void	philo_eat(t_philo *philo)
 	philo->eating = 1;
 	philo_msg("is eating", philo, philo->id);
 	philo->num_meals += 1;
+	ft_sleep(philo, philo->data->time_to_eat);
 	philo->eating = 0;
 	pthread_mutex_unlock(philo->left_f);
 	pthread_mutex_unlock(philo->right_f);
 }
 
-void	philo(void *philo)
+void	*philo(void *philo)
 {
 	t_philo	*philo_data;
 
@@ -49,5 +50,5 @@ void	philo(void *philo)
 		philo_sleep(philo_data);
 		philo_think(philo_data);
 	}
+	return (NULL);
 }
-

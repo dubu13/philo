@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:39:44 by dhasan            #+#    #+#             */
-/*   Updated: 2024/05/03 18:43:18 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/05/04 15:00:31 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <stdbool.h>
 # include <sys/time.h>
 
+typedef struct s_data	t_data;
+
 typedef struct s_philo
 {
 	pthread_t		thread;
@@ -29,6 +31,7 @@ typedef struct s_philo
 	bool			dead;
 	pthread_mutex_t	*left_f;
 	pthread_mutex_t	*right_f;
+	t_data			*data;
 }							t_philo;
 
 typedef struct s_data
@@ -44,6 +47,7 @@ typedef struct s_data
 
 //utils.c
 int				ft_strlen(const char *str);
+void			ft_sleep(t_philo *philo, unsigned int time);
 unsigned int	get_time(void);
 int				is_digit(const char *str);
 int				ft_atoi(const char *str);
@@ -52,7 +56,7 @@ int				ft_atoi(const char *str);
 int				init_args(int argc, char **argv, t_data *data);
 
 //philo.c
-void			philo(void *philo);
+void			*philo(void *philo);
 
 //error.c
 int				error(char *msg);

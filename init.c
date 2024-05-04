@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:34:18 by dhasan            #+#    #+#             */
-/*   Updated: 2024/05/03 18:48:14 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/05/04 15:24:46 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,22 @@
 
 int	creat_threads(t_data *data)
 {
-	int	i;
+	int		i;
+	t_philo	*c_philo;
 
 	i = 0;
 	while (i < data->num_philo)
 	{
-		if (pthread_create(&data->philo[i].thread, NULL, &philo, &data->philo[i]))
+		c_philo = &data->philo[i];
+		if (pthread_create(&c_philo->thread, NULL, &philo, &c_philo))
+			return (mtx_destroy(data), free_data(data), error("thread"));
+		i++;
+	}
+	i = 0;
+	while (i < data->num_philo)
+	{
+		c_philo = &data->philo[i];
+		if (pthread_join(c_philo->thread, NULL))
 			return (mtx_destroy(data), free_data(data), error("thread"));
 		i++;
 	}
