@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:39:44 by dhasan            #+#    #+#             */
-/*   Updated: 2024/05/04 15:00:31 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/05/05 17:49:58 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,14 @@ typedef struct s_philo
 {
 	pthread_t		thread;
 	int				id;
-	int				eating;
+	bool			eating;
 	long			num_meals;
+	long			last_meal;
 	bool			dead;
+	t_data			*data;
 	pthread_mutex_t	*left_f;
 	pthread_mutex_t	*right_f;
-	t_data			*data;
+	pthread_mutex_t	*dead_lock;
 }							t_philo;
 
 typedef struct s_data
@@ -41,8 +43,10 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				num_times_to_eat;
+	long			start_time;
 	t_philo			*philo;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	dead_lock;
 }							t_data;
 
 //utils.c
@@ -53,6 +57,7 @@ int				is_digit(const char *str);
 int				ft_atoi(const char *str);
 
 //init
+int				creat_threads(t_data *data);
 int				init_args(int argc, char **argv, t_data *data);
 
 //philo.c

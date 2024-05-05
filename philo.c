@@ -6,11 +6,20 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:23:26 by dhasan            #+#    #+#             */
-/*   Updated: 2024/05/04 15:02:09 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/05/05 17:23:16 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	dead(t_philo *philo)
+{
+	pthread_mutex_lock(philo->dead_lock);
+	if (philo->dead == true)
+		return (pthread_mutex_unlock(philo->dead_lock), 1);
+	pthread_mutex_unlock(philo->dead_lock);
+	return (0);
+}
 
 void	philo_think(t_philo *philo)
 {
@@ -28,11 +37,12 @@ void	philo_eat(t_philo *philo)
 	philo_msg("has taken a fork", philo, philo->id);
 	pthread_mutex_lock(philo->right_f);
 	philo_msg("has taken a fork", philo, philo->id);
-	philo->eating = 1;
+	philo->eating = true;
 	philo_msg("is eating", philo, philo->id);
 	philo->num_meals += 1;
 	ft_sleep(philo, philo->data->time_to_eat);
-	philo->eating = 0;
+	philo->last_meal = get_time();
+	philo->eating = false;
 	pthread_mutex_unlock(philo->left_f);
 	pthread_mutex_unlock(philo->right_f);
 }
@@ -42,9 +52,10 @@ void	*philo(void *philo)
 	t_philo	*philo_data;
 
 	philo_data = philo;
+	philo_data->data->start_time = get_time();
 	if (philo_data->id % 2)
 		usleep(1);
-	while (philo_data->dead == false)
+	while (!dead(philo_data))
 	{
 		philo_eat(philo_data);
 		philo_sleep(philo_data);

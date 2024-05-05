@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:33:21 by dhasan            #+#    #+#             */
-/*   Updated: 2024/05/03 18:45:07 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/05/05 17:53:23 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	mtx_destroy(t_data *data)
 		pthread_mutex_destroy(&data->forks[i]);
 		i++;
 	}
+	pthread_mutex_destroy(&data->dead_lock);
 }
 
 void	free_data(t_data *data)
