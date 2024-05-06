@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:39:44 by dhasan            #+#    #+#             */
-/*   Updated: 2024/05/05 17:49:58 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/05/06 17:15:58 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_philo
 	long			num_meals;
 	long			last_meal;
 	bool			dead;
+	long			start_time;
 	t_data			*data;
 	pthread_mutex_t	*left_f;
 	pthread_mutex_t	*right_f;
@@ -43,7 +44,6 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				num_times_to_eat;
-	long			start_time;
 	t_philo			*philo;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	dead_lock;
@@ -62,6 +62,11 @@ int				init_args(int argc, char **argv, t_data *data);
 
 //philo.c
 void			*philo(void *philo);
+
+//simulation.c
+// void			check_simulation(t_data *data);
+int				check_all_ate(t_data *data);
+int				check_meal_time(t_data *data);
 
 //error.c
 int				error(char *msg);

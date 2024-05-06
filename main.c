@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:46:40 by dhasan            #+#    #+#             */
-/*   Updated: 2024/05/05 17:56:37 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/05/06 16:22:58 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	main(int argc, char **argv)
 	if (init_args(argc, argv, &data))
 		return (free_data(&data), error("init_args"));
 	creat_threads(&data);
-	check_simulation(&data);
-	mlx_destroy(&data);
+	// check_simulation(&data);
+	mtx_destroy(&data);
 	free_data(&data);
 	return (0);
 }

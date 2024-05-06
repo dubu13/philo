@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:07:58 by dhasan            #+#    #+#             */
-/*   Updated: 2024/05/05 17:56:41 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/05/06 13:24:16 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	check_all_ate(t_data *data)
 	i = 0;
 	all_ate = 0;
 	philo_d = data->philo;
-
 	if (data->num_times_to_eat != -1)
 	{
 		while (i < data->num_philo)
@@ -33,9 +32,9 @@ int	check_all_ate(t_data *data)
 	}
 	if (all_ate == data->num_philo)
 	{
-		pthread_mutex_lock(&philo_d->dead_lock);
+		pthread_mutex_lock(philo_d->dead_lock);
 		philo_d->dead = true;
-		pthread_mutex_unlock(&philo_d->dead_lock);
+		pthread_mutex_unlock(philo_d->dead_lock);
 		return (1);
 	}
 	return (0);
@@ -55,15 +54,17 @@ int	check_meal_time(t_data *data)
 		{
 			philo_msg("died", &philo_d[i], philo_d[i].id);
 			philo_d->dead = true;
+			return (1);
 		}
 	}
+	return (0);
 }
 
-void	check_simulation(t_data *data)
-{
-	while (1)
-	{
-		if (check_meal_time(data) || check_all_ate(data))
-			break ;
-	}
-}
+// void	check_simulation(t_data *data)
+// {
+// 	while (1)
+// 	{
+// 		if (check_meal_time(data) || check_all_ate(data))
+// 			break ;
+// 	}
+// }

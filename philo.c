@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:23:26 by dhasan            #+#    #+#             */
-/*   Updated: 2024/05/05 17:23:16 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/05/06 17:17:16 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	dead(t_philo *philo)
 {
 	pthread_mutex_lock(philo->dead_lock);
+	printf("philo->dead: %d\n", philo->dead);
 	if (philo->dead == true)
 		return (pthread_mutex_unlock(philo->dead_lock), 1);
 	pthread_mutex_unlock(philo->dead_lock);
@@ -29,6 +30,7 @@ void	philo_think(t_philo *philo)
 void	philo_sleep(t_philo *philo)
 {
 	philo_msg("is sleeping", philo, philo->id);
+	ft_sleep(philo, philo->data->time_to_sleep);
 }
 
 void	philo_eat(t_philo *philo)
@@ -52,9 +54,9 @@ void	*philo(void *philo)
 	t_philo	*philo_data;
 
 	philo_data = philo;
-	philo_data->data->start_time = get_time();
+	philo_data->start_time = get_time();
 	if (philo_data->id % 2)
-		usleep(1);
+		usleep(100);
 	while (!dead(philo_data))
 	{
 		philo_eat(philo_data);
