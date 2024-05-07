@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:33:21 by dhasan            #+#    #+#             */
-/*   Updated: 2024/05/05 17:53:23 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/05/07 18:18:41 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,5 @@ void	free_data(t_data *data)
 void	philo_msg(char *msg, t_philo *philo, int id)
 {
 	if (philo->dead == false)
-		printf("%u %d %s ", get_time(), id, msg);
+		printf("%ld %d %s\n", get_time() - philo->start_time, id, msg);
 }

@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:39:44 by dhasan            #+#    #+#             */
-/*   Updated: 2024/05/06 17:15:58 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/05/07 17:30:27 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,18 @@
 # include <stdbool.h>
 # include <sys/time.h>
 
-typedef struct s_data	t_data;
+typedef struct s_philo	t_philo;
+typedef struct s_data
+{
+	int				num_philo;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				num_times_to_eat;
+	t_philo			*philo;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	dead_lock;
+}							t_data;
 
 typedef struct s_philo
 {
@@ -34,24 +45,13 @@ typedef struct s_philo
 	t_data			*data;
 	pthread_mutex_t	*left_f;
 	pthread_mutex_t	*right_f;
-	pthread_mutex_t	*dead_lock;
+	// pthread_mutex_t	*dead_lock;
 }							t_philo;
 
-typedef struct s_data
-{
-	int				num_philo;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				num_times_to_eat;
-	t_philo			*philo;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	dead_lock;
-}							t_data;
 
 //utils.c
 int				ft_strlen(const char *str);
-void			ft_sleep(t_philo *philo, unsigned int time);
+void			ft_sleep(unsigned int time);
 unsigned int	get_time(void);
 int				is_digit(const char *str);
 int				ft_atoi(const char *str);

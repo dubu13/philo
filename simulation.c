@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:07:58 by dhasan            #+#    #+#             */
-/*   Updated: 2024/05/06 13:24:16 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/05/07 16:20:56 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	check_all_ate(t_data *data)
 	}
 	if (all_ate == data->num_philo)
 	{
-		pthread_mutex_lock(philo_d->dead_lock);
+		pthread_mutex_lock(&data->dead_lock);
 		philo_d->dead = true;
-		pthread_mutex_unlock(philo_d->dead_lock);
+		pthread_mutex_unlock(&data->dead_lock);
 		return (1);
 	}
 	return (0);

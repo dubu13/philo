@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:48:58 by dhasan            #+#    #+#             */
-/*   Updated: 2024/05/04 14:40:51 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/05/07 18:39:07 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,16 @@ int	ft_strlen(const char *str)
 	return (i);
 }
 
-void	ft_sleep(t_philo *philo, unsigned int time)
+void	ft_sleep(unsigned int time)
 {
 	unsigned int	start_t;
 
 	start_t = get_time();
-	while (philo->dead == false)
-	{
-		if (get_time() - start_t >= time)
-			break ;
-		usleep(100);
-	}
+	// while (philo->dead == false)
+	// {
+	while (get_time() - start_t < time)
+		usleep(400);
+	// }
 }
 
 unsigned int	get_time(void)

@@ -6,21 +6,21 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:23:26 by dhasan            #+#    #+#             */
-/*   Updated: 2024/05/06 17:17:16 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/05/07 18:41:36 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	dead(t_philo *philo)
-{
-	pthread_mutex_lock(philo->dead_lock);
-	printf("philo->dead: %d\n", philo->dead);
-	if (philo->dead == true)
-		return (pthread_mutex_unlock(philo->dead_lock), 1);
-	pthread_mutex_unlock(philo->dead_lock);
-	return (0);
-}
+// int	dead(t_philo *philo)
+// {
+// 	printf("philo->dead: %d\n", philo->dead);
+// 	pthread_mutex_lock(&philo->data->dead_lock);
+// 	if (philo->dead == true)
+// 		return (pthread_mutex_unlock(&philo->data->dead_lock), 1);
+// 	pthread_mutex_unlock(&philo->data->dead_lock);
+// 	return (0);
+// }
 
 void	philo_think(t_philo *philo)
 {
@@ -30,7 +30,7 @@ void	philo_think(t_philo *philo)
 void	philo_sleep(t_philo *philo)
 {
 	philo_msg("is sleeping", philo, philo->id);
-	ft_sleep(philo, philo->data->time_to_sleep);
+	ft_sleep(philo->data->time_to_sleep);
 }
 
 void	philo_eat(t_philo *philo)
@@ -42,7 +42,7 @@ void	philo_eat(t_philo *philo)
 	philo->eating = true;
 	philo_msg("is eating", philo, philo->id);
 	philo->num_meals += 1;
-	ft_sleep(philo, philo->data->time_to_eat);
+	ft_sleep(philo->data->time_to_eat);
 	philo->last_meal = get_time();
 	philo->eating = false;
 	pthread_mutex_unlock(philo->left_f);
@@ -57,7 +57,7 @@ void	*philo(void *philo)
 	philo_data->start_time = get_time();
 	if (philo_data->id % 2)
 		usleep(100);
-	while (!dead(philo_data))
+	while (philo_data->dead == false)
 	{
 		philo_eat(philo_data);
 		philo_sleep(philo_data);
