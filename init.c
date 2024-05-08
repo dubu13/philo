@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:34:18 by dhasan            #+#    #+#             */
-/*   Updated: 2024/05/07 18:42:42 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/05/08 23:20:15 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ int	creat_threads(t_data *data)
 			return (mtx_destroy(data), free_data(data), error("thread"));
 		i++;
 	}
-	while (1)
+	while (1) 
 	{
 		if (check_all_ate(data) || check_meal_time(data))
 			break ;
 	}
 	return (0);
 }
-//my dumbass forgot to add i++ :')
+
 int	init_philo(t_data *data)
 {
 	int	i;
@@ -57,7 +57,6 @@ int	init_philo(t_data *data)
 		data->philo[i].num_meals = 0;
 		data->philo[i].dead = false;
 		data->philo[i].start_time = get_time();
-		// data->philo[i].dead_lock = &data->dead_lock;
 		data->philo[i].right_f = &data->forks[data->philo[i].id - 1];
 		if (data->philo[i].id == data->num_philo)
 			data->philo[i].left_f = &data->forks[0];
@@ -96,7 +95,7 @@ int	init_args(int argc, char **argv, t_data *data)
 		data->num_times_to_eat = ft_atoi(argv[5]);
 	if (pthread_mutex_init(&data->dead_lock, NULL))
 		return (1);
-	if (init_philo(data) || init_forks(data))
+	if (init_forks(data) || init_philo(data))
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:07:58 by dhasan            #+#    #+#             */
-/*   Updated: 2024/05/07 16:20:56 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/05/08 22:35:41 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,7 @@ int	check_meal_time(t_data *data)
 			philo_d->dead = true;
 			return (1);
 		}
+		i++;
 	}
 	return (0);
 }
-
-// void	check_simulation(t_data *data)
-// {
-// 	while (1)
-// 	{
-// 		if (check_meal_time(data) || check_all_ate(data))
-// 			break ;
-// 	}
-// }

@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:48:58 by dhasan            #+#    #+#             */
-/*   Updated: 2024/05/07 18:39:07 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/05/08 21:43:00 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_sleep(unsigned int time)
 	// while (philo->dead == false)
 	// {
 	while (get_time() - start_t < time)
-		usleep(400);
+		usleep(200);
 	// }
 }
 

@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:23:26 by dhasan            #+#    #+#             */
-/*   Updated: 2024/05/07 18:41:36 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/05/08 23:11:58 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,16 @@ void	*philo(void *philo)
 
 	philo_data = philo;
 	philo_data->start_time = get_time();
+	if (philo_data->data->num_philo == 1)
+	{
+		pthread_mutex_lock(philo_data->left_f);
+		philo_msg("has taken a fork", philo_data, philo_data->id);
+		ft_sleep(philo_data->data->time_to_die);
+		pthread_mutex_unlock(philo_data->left_f);
+		return (0);
+	}
 	if (philo_data->id % 2)
-		usleep(100);
+		ft_sleep(philo_data->data->time_to_eat);
 	while (philo_data->dead == false)
 	{
 		philo_eat(philo_data);
