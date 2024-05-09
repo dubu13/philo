@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:39:44 by dhasan            #+#    #+#             */
-/*   Updated: 2024/05/08 23:16:59 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/05/09 21:21:13 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,12 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				num_times_to_eat;
+	bool			dead;
 	t_philo			*philo;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	eating_lock;
 	pthread_mutex_t	dead_lock;
+	pthread_mutex_t	print_lock;
 }							t_data;
 
 typedef struct s_philo
@@ -40,38 +43,26 @@ typedef struct s_philo
 	bool			eating;
 	long			num_meals;
 	long			last_meal;
-	bool			dead;
 	long			start_time;
 	t_data			*data;
 	pthread_mutex_t	*left_f;
 	pthread_mutex_t	*right_f;
-	// pthread_mutex_t	*dead_lock;
 }							t_philo;
 
-
-//utils.c
 int				ft_strlen(const char *str);
 void			ft_sleep(unsigned int time);
 unsigned int	get_time(void);
 int				is_digit(const char *str);
 int				ft_atoi(const char *str);
 
-//init
-int				creat_threads(t_data *data);
 int				init_args(int argc, char **argv, t_data *data);
 
-//philo.c
 void			*philo(void *philo);
 
-//simulation.c
-// void			check_simulation(t_data *data);
-int				check_all_ate(t_data *data);
-int				check_meal_time(t_data *data);
+int				simulation(t_data *data);
 
-//error.c
 int				error(char *msg);
-void			mtx_destroy(t_data *data);
-void			free_data(t_data *data);
+void			finish(t_data *data, bool all);
 void			philo_msg(char *msg, t_philo *philo, int id);
 
 #endif

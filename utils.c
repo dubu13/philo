@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:48:58 by dhasan            #+#    #+#             */
-/*   Updated: 2024/05/08 21:43:00 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/05/09 21:22:02 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,8 @@ void	ft_sleep(unsigned int time)
 	unsigned int	start_t;
 
 	start_t = get_time();
-	// while (philo->dead == false)
-	// {
 	while (get_time() - start_t < time)
 		usleep(200);
-	// }
 }
 
 unsigned int	get_time(void)
@@ -74,7 +71,5 @@ int	ft_atoi(const char *str)
 	}
 	while (*str >= '0' && *str <= '9')
 		num = (num * 10) + (*str++ - '0');
-	// if (num * sign > 2147483647)
-	// 	return (write(2, "Error: arg bigger than INT_MAX\n", 31), 1);
 	return (num * sign);
 }

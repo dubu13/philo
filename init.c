@@ -6,40 +6,11 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:34:18 by dhasan            #+#    #+#             */
-/*   Updated: 2024/05/08 23:20:15 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/05/09 21:13:57 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int	creat_threads(t_data *data)
-{
-	int		i;
-	t_philo	*philo_data;
-
-	i = 0;
-	while (i < data->num_philo)
-	{
-		philo_data = &data->philo[i];
-		if (pthread_create(&philo_data->thread, NULL, &philo, philo_data))
-			return (mtx_destroy(data), free_data(data), error("thread"));
-		i++;
-	}
-	i = 0;
-	while (i < data->num_philo)
-	{
-		philo_data = &data->philo[i];
-		if (pthread_join(philo_data->thread, NULL))
-			return (mtx_destroy(data), free_data(data), error("thread"));
-		i++;
-	}
-	while (1) 
-	{
-		if (check_all_ate(data) || check_meal_time(data))
-			break ;
-	}
-	return (0);
-}
 
 int	init_philo(t_data *data)
 {
@@ -55,8 +26,8 @@ int	init_philo(t_data *data)
 		data->philo[i].id = i + 1;
 		data->philo[i].eating = 0;
 		data->philo[i].num_meals = 0;
-		data->philo[i].dead = false;
 		data->philo[i].start_time = get_time();
+		data->philo[i].last_meal = get_time();
 		data->philo[i].right_f = &data->forks[data->philo[i].id - 1];
 		if (data->philo[i].id == data->num_philo)
 			data->philo[i].left_f = &data->forks[0];
@@ -90,10 +61,13 @@ int	init_args(int argc, char **argv, t_data *data)
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
+	data->dead = false;
 	data->num_times_to_eat = -1;
 	if (argc == 6)
 		data->num_times_to_eat = ft_atoi(argv[5]);
-	if (pthread_mutex_init(&data->dead_lock, NULL))
+	if (pthread_mutex_init(&data->dead_lock, NULL)
+		|| pthread_mutex_init(&data->print_lock, NULL)
+		|| pthread_mutex_init(&data->eating_lock, NULL))
 		return (1);
 	if (init_forks(data) || init_philo(data))
 		return (1);
