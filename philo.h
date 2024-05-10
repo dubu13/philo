@@ -6,7 +6,7 @@
 /*   By: dhasan <dhasan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 16:39:44 by dhasan            #+#    #+#             */
-/*   Updated: 2024/05/09 21:21:13 by dhasan           ###   ########.fr       */
+/*   Updated: 2024/05/10 16:32:11 by dhasan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_philo
 }							t_philo;
 
 int				ft_strlen(const char *str);
-void			ft_sleep(unsigned int time);
+void			ft_sleep(unsigned int time, t_data *data);
 unsigned int	get_time(void);
 int				is_digit(const char *str);
 int				ft_atoi(const char *str);
